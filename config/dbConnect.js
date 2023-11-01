@@ -1,9 +1,9 @@
-const mongoose = require( "mongoose" );
+const {default: mongoose} = require( "mongoose" );
 
 const dbConnect = () => {
   try {
-    const conn = mongoose.connect( process.env.MONGODB_URL );
-    console.log('Conectado exitoSamente');
+    mongoose.connect( process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true} );//
+    console.log('Mongoose conectado exitosamente');
   } catch ( error ) {
     console.log( "Error Database" )
   };
