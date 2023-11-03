@@ -1,6 +1,6 @@
 const mongoose = require( 'mongoose' ); // Inicialicé mediante cmd !sb
 
-// Declare the Schema of the Mongo model
+// Declarar Schema del modelo de MongoDB
 var productSchema = new mongoose.Schema( 
   {
     title:{
@@ -30,7 +30,10 @@ var productSchema = new mongoose.Schema(
         type: String,
         enum: ["Bimbo", "Fargo", "Lactal"]
     },
-    quantity: Number,
+    quantity: {
+        type: Number,
+        required: true,
+    },
     sold: {
         type: Number,
         default: 0,
@@ -53,4 +56,4 @@ var productSchema = new mongoose.Schema(
 );
 
 //Export the model
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model("Product", productSchema);

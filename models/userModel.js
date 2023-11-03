@@ -1,14 +1,15 @@
-const mongoose = require('mongoose'); // !mdbg
+// !mdbg esquema, instale extension mongo snnipet
+const mongoose = require( 'mongoose' ); // Erase if already required
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
     firstname:{
         type:String,
-        required:true
+        required:true,
     },
-    lastname:{
-        type:String,
-        required:true
+    firstname:{
+      type:String,
+      required:true,
     },
     email:{
         type:String,
