@@ -22,13 +22,13 @@ var productSchema = new mongoose.Schema(
         type: Number,
         required: true,
     },
-    category:{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
     },
     brand: {
         type: String,
-        enum: ["Bimbo", "Fargo", "Lactal"]
+        required: true,
     },
     quantity: {
         type: Number,
@@ -38,13 +38,12 @@ var productSchema = new mongoose.Schema(
         type: Number,
         default: 0,
     },
-    images: {
-        type: Array,
-    },
-    color: {
-        type: String,
-        enum: ['Black', "Brown", "Red"],
-    },
+    carts: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Cart',
+        },
+      ],
     ratings: [
         {
             star: Number,
