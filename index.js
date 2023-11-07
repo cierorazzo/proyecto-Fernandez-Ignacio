@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 3000;
 const productRouter = require( "./routes/prodRoute" );
 const categoryRouter = require( "./routes/categoryRoute" );
 const cartRouter = require( "./routes/cartRoute" )
-const { createProduct } = require("./controller/productCtrl");
 const morgan = require( "morgan" );
 
 dbConnect();
