@@ -7,35 +7,30 @@ const mongoose = require( "mongoose" );
 const createProduct = asyncHandler(async (req, res) => {
   try {
     const { title, description, price, brand, quantity, sold } = req.body;
-    let { category } = req.body; // Hacer que 'category' sea opcional
-
+    let { category } = req.body; 
     if (!title || !description || !price || !brand || !quantity) {
       return res.status(400).json({ error: "Por favor, complete todos los campos obligatorios" });
     }
 
-    let categoryID = null; // Inicializa 'categoryID' como nulo por defecto
+    let categoryID = null; // inicializo categoy como nulo
 
     if (category) {
-      // Si 'category' está presente en el cuerpo de la solicitud
-      // Verifica si la entrada de categoría es un ID de categoría
       if (mongoose.Types.ObjectId.isValid(category)) {
-        categoryID = category; // Si es un ID válido, úsalo directamente
+        categoryID = category; 
       } else {
-        // Si no es un ID válido, busca la categoría por nombre
         const categoryByName = await Category.findOne({ title: category });
 
         if (!categoryByName) {
           return res.status(400).json({ error: "La categoría no existe" });
         }
 
-        categoryID = categoryByName._id; // Usa el ID de la categoría encontrada
+        categoryID = categoryByName._id;
       }
     }
 
     // Genera un slug único a partir del título
     const slug = slugify(title, { lower: true });
 
-    // Crea el producto utilizando el ID de la categoría (si se proporciona)
     const newProduct = await Product.create({
       title,
       slug,
@@ -65,7 +60,6 @@ const updateProduct = asyncHandler(async (req, res) => {
       // Verifica si el campo 'category' es un ObjectId válido
       if (updatedFields.category) {
           if (!mongoose.Types.ObjectId.isValid(updatedFields.category)) {
-              // Si no es un ObjectId válido, busca la categoría por nombre
               const categoryByName = await Category.findOne({ title: updatedFields.category });
 
               if (categoryByName) {
@@ -76,7 +70,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
       const updatedProduct = await Product.findOneAndUpdate(
           { _id: productId },
-          { $set: updatedFields }, // Utiliza $set para actualizar todos los campos
+          { $set: updatedFields },
           { new: true }
       );
 
@@ -121,7 +115,6 @@ const getaProduct = asyncHandler(async (req, res) => {
         filter._id = id;
       }
   
-      // Usa populate para obtener el nombre de la categoría en lugar del ID
       const getallProducts = await Product.find(filter).populate("category", "title");
   
       res.json(getallProducts);

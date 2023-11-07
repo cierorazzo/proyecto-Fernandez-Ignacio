@@ -18,8 +18,8 @@ const updateCategory = asyncHandler(async (req, res) => {
       new: true,
     });
 
-    // Actualiza los productos relacionados con esta categoría
-    await Product.updateMany({ category: updatedCategory._id }, { category: updatedCategory._id });
+  
+    await Product.updateMany({ category: updatedCategory._id });
 
     res.json(updatedCategory);
   } catch (error) {

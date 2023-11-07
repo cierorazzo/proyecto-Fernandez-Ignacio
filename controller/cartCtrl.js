@@ -5,10 +5,8 @@ const asyncHandler = require("express-async-handler");
 
 const createCart = asyncHandler(async (req, res) => {
   try {
-    // Obtén los productos del cuerpo de la solicitud (req.body.products)
     const products = req.body.products;
 
-    // Inicializa el total en 0
     let total = 0;
 
     // Recorre los productos y suma quantity * price al total
@@ -18,13 +16,12 @@ const createCart = asyncHandler(async (req, res) => {
       }
     }
 
-    // Crea un nuevo carrito en la base de datos con el total calculado
     const newCart = await Cart.create({
       items: products,
       total: total,
     });
 
-    res.status(201).json(newCart); // Devuelve el carrito creado
+    res.status(201).json(newCart);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al crear el carrito" });
@@ -35,7 +32,7 @@ const createCart = asyncHandler(async (req, res) => {
 const addProductToCart = asyncHandler(async (req, res) => {
   try {
     const { cartId } = req.params;
-    const { products } = req.body; // Cambia 'productId' y 'quantity' a 'products'
+    const { products } = req.body;
 
     const cart = await Cart.findById(cartId);
 
@@ -43,10 +40,8 @@ const addProductToCart = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: 'Carrito no encontrado' });
     }
 
-    // Inicializa el precio total del carrito en 0
     cart.total = 0;
 
-    // Itera a través de los productos en el carrito
     for (const productInfo of products) {
       const { productId, quantity } = productInfo;
 
@@ -92,7 +87,6 @@ const updateProductInCart = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
-    // Busca el producto en el carrito
     const cartItem = cart.items.find((item) => item.product.toString() === productId);
 
     if (!cartItem) {
@@ -147,11 +141,8 @@ const deleteProductFromCart = asyncHandler(async (req, res) => {
     if (productIndex === -1) {
       return res.status(404).json({ error: 'Producto no encontrado en el carrito' });
     }
-
-    // Remueve el producto del carrito
     cart.items.splice(productIndex, 1);
 
-    // Recalcula el precio total del carrito
     let cartTotal = 0;
     for (const item of cart.items) {
       const product = await Product.findById(item.product);
@@ -175,7 +166,6 @@ const deleteCart = asyncHandler(async (req, res) => {
     const cartId = req.params.id;
     console.log('Cart ID:', cartId);
 
-    // Verifica si el carrito existe en la base de datos
     const result = await Cart.deleteOne({ _id: cartId });
 
     if (result.deletedCount === 0) {
