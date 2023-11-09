@@ -55,15 +55,14 @@ const updateProduct = asyncHandler(async (req, res) => {
           req.body.slug = slugify(req.body.title);
       }
 
-      const updatedFields = { ...req.body }; // Copia los campos actualizados
+      const updatedFields = { ...req.body };
 
-      // Verifica si el campo 'category' es un ObjectId válido
       if (updatedFields.category) {
           if (!mongoose.Types.ObjectId.isValid(updatedFields.category)) {
               const categoryByName = await Category.findOne({ title: updatedFields.category });
 
               if (categoryByName) {
-                  updatedFields.category = categoryByName._id; // Usa el ID de la categoría encontrada
+                  updatedFields.category = categoryByName._id; 
               }
           }
       }
@@ -101,7 +100,7 @@ const getaProduct = asyncHandler(async (req, res) => {
     }
   });
 
-  const getAllProduct = asyncHandler(async (req, res) => {
+const getAllProduct = asyncHandler(async (req, res) => {
     try {
       const { category, id } = req.query;
   
@@ -121,6 +120,6 @@ const getaProduct = asyncHandler(async (req, res) => {
     } catch (error) {
       throw  Error(error);
     }
-  });
+});
 module.exports = { createProduct, getaProduct, getAllProduct, updateProduct, deleteProduct };
 

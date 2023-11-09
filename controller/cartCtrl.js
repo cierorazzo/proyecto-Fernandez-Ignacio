@@ -51,13 +51,10 @@ const addProductToCart = asyncHandler(async (req, res) => {
         return res.status(404).json({ error: 'Producto no encontrado' });
       }
 
-      // Calcula el precio total del producto (precio x cantidad)
       const itemTotal = product.price * quantity;
 
-      // Agrega el producto al carrito
       cart.items.push({ product: product._id, quantity, itemTotal });
 
-      // Actualiza el precio total del carrito
       cart.total += itemTotal;
     }
 
@@ -93,11 +90,11 @@ const updateProductInCart = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: 'Producto no encontrado en el carrito' });
     }
 
-    // Actualiza la cantidad del producto
+    //Actualiza la cantidad del producto
     if (typeof quantity === 'number' && !isNaN(quantity) && quantity >= 0) {
       cartItem.quantity = quantity;
 
-      // Recalcula el precio total del carrito
+      //Recalcula el precio total del carrito
       let cartTotal = 0;
       for (const item of cart.items) {
         const product = await Product.findById(item.product);
@@ -164,7 +161,7 @@ const deleteProductFromCart = asyncHandler(async (req, res) => {
 const deleteCart = asyncHandler(async (req, res) => {
   try {
     const cartId = req.params.id;
-    console.log('Cart ID:', cartId);
+    console.log('El id es:', cartId);
 
     const result = await Cart.deleteOne({ _id: cartId });
 
