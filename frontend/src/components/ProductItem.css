@@ -1,0 +1,20 @@
+.productItem{
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+  width: 400px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.productItemBtn{
+  background-color: #FEBE10;
+  padding: 10px;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -44,12 +44,11 @@ var productSchema = new mongoose.Schema(
           ref: 'Cart',
         },
       ],
-    ratings: [
+    images: [
         {
-            star: Number,
-            postedby: {type:mongoose.Schema.Types.ObjectId, ref: "User"},
-            },
-    ],
+          type: String,
+        },
+      ],
     },
   {timestamps: true}
 );

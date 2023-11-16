@@ -6,7 +6,7 @@ const mongoose = require( "mongoose" );
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
-    const { title, description, price, brand, quantity, sold } = req.body;
+    const { title, description, price, brand, quantity, sold, images } = req.body;
     let { category } = req.body; 
     if (!title || !description || !price || !brand || !quantity) {
       return res.status(400).json({ error: "Por favor, complete todos los campos obligatorios" });
@@ -28,8 +28,10 @@ const createProduct = asyncHandler(async (req, res) => {
       }
     }
 
-    // Genera un slug único a partir del título
+
     const slug = slugify(title, { lower: true });
+
+    const imagePath = `/backend/images/${images}`;
 
     const newProduct = await Product.create({
       title,
@@ -40,6 +42,7 @@ const createProduct = asyncHandler(async (req, res) => {
       brand,
       quantity,
       sold,
+      images: imagePath, // Almacena la ruta completa de la imagen
     });
 
     res.json(newProduct);
@@ -53,7 +56,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   try {
       if (req.body.title) {
           req.body.slug = slugify(req.body.title);
-      }
+      };
 
       const updatedFields = { ...req.body };
 
@@ -65,7 +68,7 @@ const updateProduct = asyncHandler(async (req, res) => {
                   updatedFields.category = categoryByName._id; 
               }
           }
-      }
+      };
 
       const updatedProduct = await Product.findOneAndUpdate(
           { _id: productId },
