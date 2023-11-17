@@ -1,15 +1,15 @@
-const Category = require( "../models/categoryModel" );
+const Category = require("../models/categoryModel");
 const Product = require("../models/productModel");
-const asyncHandler = require( "express-async-handler" );
+const asyncHandler = require("express-async-handler");
 
-const createCategory = asyncHandler( async( req, res ) => {
+const createCategory = asyncHandler(async (req, res) => {
   try {
-    const newCategory = await Category.create( req.body );
-    res.json( newCategory );
+    const newCategory = await Category.create(req.body);
+    res.json(newCategory);
   } catch (error) {
-    throw new Error( error );
+    throw new Error(error);
   }
-} );
+});
 
 const updateCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -18,7 +18,6 @@ const updateCategory = asyncHandler(async (req, res) => {
       new: true,
     });
 
-  
     await Product.updateMany({ category: updatedCategory._id });
 
     res.json(updatedCategory);
@@ -27,15 +26,15 @@ const updateCategory = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteCategory = asyncHandler( async( req, res ) => {
+const deleteCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedCategory = await Category.findByIdAndDelete( id );
-    res.json( deletedCategory );
+    const deletedCategory = await Category.findByIdAndDelete(id);
+    res.json(deletedCategory);
   } catch (error) {
-    throw new Error( error );
+    throw new Error(error);
   }
-} );
+});
 
 const getAllCategories = asyncHandler(async (req, res) => {
   try {
@@ -46,4 +45,9 @@ const getAllCategories = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createCategory, updateCategory, deleteCategory, getAllCategories };
+module.exports = {
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  getAllCategories,
+};

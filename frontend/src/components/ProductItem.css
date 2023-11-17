@@ -5,16 +5,17 @@
   width: 400px;
   display: flex;
   gap: 12px;
+  border-radius: 10px;
   flex-direction: column;
 }
 
 .productItemBtn{
-  background-color: #FEBE10;
+  background-color: #8d8acf;
   padding: 10px;
   outline: none;
   border: none;
   font-size: 14px;
   font-weight: 500;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
 }

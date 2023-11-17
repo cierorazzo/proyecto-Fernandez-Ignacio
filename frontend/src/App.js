@@ -1,20 +1,20 @@
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Body from "./components/Body";
-import Header from "./components/Header";
+import Cart from "./screens/Cart";
+import Home from "./screens/Home";
 import store from "./store";
 
 function App() {
   return (
-    <div className="app">
+    <Router>
       <Provider store={store}>
-        {/*Header */}
-        <Header />
-
-        {/*Body */}
-        <Body />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
       </Provider>
-    </div>
+    </Router>
   );
 }
 
