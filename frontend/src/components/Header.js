@@ -36,7 +36,7 @@ function Header() {
         />
       </div>
 
-      {/*SECCION DEVOLUCION Y PEDIDOS */}
+      {/*SECCION USUARIO */}
       <div>
         <h3 className="headerText">Usuario</h3>
         <h4 className="headerText">Ignacio</h4>

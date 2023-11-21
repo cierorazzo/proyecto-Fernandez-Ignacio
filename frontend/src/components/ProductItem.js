@@ -31,7 +31,6 @@ function ProductItem({ product }) {
 
       {/*PRECIO DEL PRODUCTO */}
       <p>{product.price}</p>
-
       {/*BOTON DE AÑADIR AL CARRITO */}
       {cart.some((x) => x._id === product._id) ? (
         <button

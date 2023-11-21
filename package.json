@@ -1,0 +1,9 @@
+{
+  "name": "proyecto-fernandez-ignacio",
+  "version": "1.0.0",
+  "scripts": {
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
+    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  }
+}
